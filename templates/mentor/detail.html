@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block container %}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Анкета наставника</h5>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+          <dt class="col-sm-3">ФИО</dt>
+          <dd class="col-sm-9">{{ mentor.surname }} {{ mentor.name }} {{ mentor.patronymic }}</dd>
+          <dt class="col-sm-3">О себе</dt>
+          <dd class="col-sm-9">{{ mentor.bio }}</dd>
+          <dt class="col-sm-3">Дата рождения</dt>
+          <dd class="col-sm-9">{{ mentor.birth_date }}</dd>
+          <dt class="col-sm-3">Должность</dt>
+          <dd class="col-sm-9">{{ mentor.position }}</dd>
+          <dt class="col-sm-3">Является наставником</dt>
+            {% if mentor.mentor %}
+                <dt class="col-sm-9"><input class="form-check-input" type="checkbox" value="" id="MentorCheck" checked disabled></dt>
+            {% else %}
+                <dt class="col-sm-9"><input class="form-check-input" type="checkbox" value="" id="MentorCheck" disabled></dt>
+            {% endif %}
+          <a href="update" class="btn btn-primary">Редактировать</a>
+        </dl>
+    </div>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Название</th>
+      <th scope="col">Студент</th>
+      <th scope="col">Дата начала</th>
+      <th scope="col">Дата окончания</th>
+      <th scope="col">Статус</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for interaction in mentor.interactions_to_mentor.all %}
+    <tr>
+      <td><a href="/interactions/{{ interaction.id }}">{{ interaction.interaction_name }}</a></td>
+        <td><a href="/students/{{ interaction.student.id }}">{{ interaction.student }}</a></td>
+      <td>{{ interaction.start_date }}</td>
+      <td>{{ interaction.end_date }}</td>
+      <td>{{ interaction.status }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

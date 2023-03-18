@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.utils import timezone
 
@@ -12,10 +14,10 @@ class Interaction(models.Model):
                                 verbose_name="Студент", on_delete=models.SET_NULL, null=True)
     time_create = models.DateTimeField("Дата создания", default=timezone.now)
     time_edit = models.DateTimeField("Дата последнего изменения", default=timezone.now)
-    start_date = models.DateField("Дата начала", blank=True, null=True)
+    start_date = models.DateField("Дата начала", blank=True, null=True, default=datetime.date.today())
     end_date = models.DateField("Дата окончания", blank=True, null=True)
     status = models.ForeignKey("Status", related_name="interactions_to_status",
-                               verbose_name="Статус", on_delete=models.SET_NULL, null=True)
+                               verbose_name="Статус", on_delete=models.SET_NULL, null=True, default="Новый")
 
     def __str__(self):
         return self.interaction_name
@@ -23,6 +25,7 @@ class Interaction(models.Model):
     class Meta:
         verbose_name = "Взаимодействие"
         verbose_name_plural = "Взаимодействия"
+        ordering = ['status', 'start_date', 'end_date']
 
 
 class InteractionType(models.Model):

@@ -15,15 +15,17 @@ class Profile(models.Model):
     bio = models.TextField("Описание профиля", max_length=500, blank=True, null=True)
     birth_date = models.DateField("Дата рождения", blank=True, null=True)
     position = models.TextField("Должность", max_length=200, null=True)
-    mentor = models.BooleanField("Является наставником", default=False)
+    mentor = models.BooleanField("Является наставником", default=True)
 
     def __str__(self):
-        return f"{self.surname} {self.name} {self.patronymic}, {self.position}"
+        return f"{self.surname} {self.name} {self.patronymic if self.patronymic else ''}," \
+               f" {self.position if self.position else 'Должность не указана'}"
 
     class Meta:
         verbose_name = "Сотрудник"
         verbose_name_plural = "Сотрудники"
         unique_together = ['name', 'surname', 'patronymic']
+        ordering = ['surname', 'name', 'position']
 
 
 @receiver(post_save, sender=User)

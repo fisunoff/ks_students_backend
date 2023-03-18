@@ -2,7 +2,7 @@
 {% block container %}
 <div class="card">
     <div class="card-header">
-        <h5 class="card-title">Удалить студента {{ object }}</h5>
+        <h5 class="card-title">Удалить взаимодействие {{ object }}</h5>
     </div>
     <div class="card-body">
         <form method="post">
@@ -11,7 +11,7 @@
                 Вы точно хотите удалить <strong>{{ object }}</strong> ?
             </div>
             <button type="submit" class="btn btn-danger">Удалить</button>
-            <button type="button" onclick="location.href='/students/{{ object.id }}'"
+            <button type="button" onclick="location.href='/interactions/{{ object.id }}'"
                     class="btn btn-secondary">Отмена</button>
         </form>
     </div>

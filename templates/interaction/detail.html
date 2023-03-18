@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block container %}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Карточка взаимодействия</h5>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+          <dt class="col-sm-3">Название</dt>
+          <dd class="col-sm-9">{{ interaction.interaction_name }}</dd>
+          <dt class="col-sm-3">Тип</dt>
+          <dd class="col-sm-9">{{ interaction.type }}</dd>
+          <dt class="col-sm-3">Наставник</dt>
+            <dd class="col-sm-9"><a href="/mentors/{{ interaction.mentor.id }}">{{ interaction.mentor }}</a></dd>
+          <dt class="col-sm-3">ФИО студента</dt>
+          <dd class="col-sm-9"><a href="/students/{{ interaction.student.id }}">{{ interaction.student }}</a></dd>
+          <dt class="col-sm-3">Дата начала</dt>
+          <dd class="col-sm-9">{{ interaction.start_date }}</dd>
+          <dt class="col-sm-3">Дата окончания</dt>
+          <dd class="col-sm-9">{{ interaction.end_date }}</dd>
+          <dt class="col-sm-3">Статус</dt>
+          <dd class="col-sm-9">{{ interaction.status }}</dd>
+          <dt class="col-sm-3">Дата создания</dt>
+          <dd class="col-sm-9">{{ interaction.time_create }}</dd>
+          <dt class="col-sm-3">Дата последнего изменения</dt>
+          <dd class="col-sm-9">{{ interaction.time_edit }}</dd>
+          <a href="update" class="btn btn-primary">Редактировать</a>
+          <a href="delete" class="btn btn-danger">Удалить</a>
+        </dl>
+    </div>
+</div>
+
+{% endblock %}

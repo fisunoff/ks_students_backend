@@ -44,8 +44,8 @@
   <tbody>
   {% for interaction in student.interactions_to_student.all %}
     <tr>
-      <td>{{ interaction.interaction_name }}</td>
-      <td>{{ interaction.mentor }}</td>
+      <td><a href="/interactions/{{ interaction.id }}">{{ interaction.interaction_name }}</a></td>
+        <td><a href="/mentors/{{ interaction.mentor.id }}">{{ interaction.mentor }}</a></td>
       <td>{{ interaction.start_date }}</td>
       <td>{{ interaction.end_date }}</td>
       <td>{{ interaction.status }}</td>

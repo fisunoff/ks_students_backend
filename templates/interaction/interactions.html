@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block container %}
+<table class="table">
+    <tr>
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Название</th>
+                <th scope="col">Наставник</th>
+                <th scope="col">Студент</th>
+                <th scope="col">Дата начала</th>
+                <th scope="col">Дата окончания</th>
+                <th scope="col">Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for interaction in interactions %}
+            <tr>
+                <td><a href="interactions/{{ interaction.id }}">{{ interaction.interaction_name }}</a></td>
+                <td>{{interaction.mentor}}</td>
+                <td>{{interaction.student}}</td>
+                <td>{{interaction.start_date}}</td>
+                <td>{{interaction.end_date}}</td>
+                <td>{{interaction.status}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+</table>
+{% if is_paginated %}
+    {% include "_pagination.html" %}
+{% endif %}
+
+{% endblock %}

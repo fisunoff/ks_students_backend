@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from ks_students.views import StudentsListView, StudentCreateView, StudentUpdateView, StudentDeleteView, StudentDetailView
+from interaction.views import InteractionsListView, InteractionCreateView, InteractionDetailView, InteractionDeleteView, InteractionUpdateView
+from mentor.views import MentorsListView, MentorDetailView, MentorUpdateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,5 +25,14 @@ urlpatterns = [
     path('students/create', StudentCreateView.as_view()),
     path('students/<int:pk>/', StudentDetailView.as_view(), name='student_detail'),
     path('students/<int:pk>/update', StudentUpdateView.as_view()),
-    path('students/<int:pk>/delete', StudentDeleteView.as_view(), name='student_delete')
+    path('students/<int:pk>/delete', StudentDeleteView.as_view(), name='student_delete'),
+    path('interactions', InteractionsListView.as_view(), name="interactions-list"),
+    path('interactions/create', InteractionCreateView.as_view()),
+    path('interactions/<int:pk>/', InteractionDetailView.as_view(), name='interaction_detail'),
+    path('interactions/<int:pk>/update', InteractionUpdateView.as_view(), name='interaction_update'),
+    path('interactions/<int:pk>/delete', InteractionDeleteView.as_view(), name='interaction_delete'),
+
+    path('mentors', MentorsListView.as_view(), name="mentors-list"),
+    path('mentors/<int:pk>/', MentorDetailView.as_view(), name='mentor_detail'),
+    path('mentors/<int:pk>/update', MentorUpdateView.as_view(), name='mentor_update'),
 ]
