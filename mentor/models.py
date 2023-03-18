@@ -18,7 +18,7 @@ class Profile(models.Model):
     mentor = models.BooleanField("Является наставником", default=False)
 
     def __str__(self):
-        return f"{self.surname} {self.name}"
+        return f"{self.surname} {self.name} {self.patronymic}, {self.position}"
 
     class Meta:
         verbose_name = "Сотрудник"

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block container %}
+<h1>Список студентов</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ФИО</th>
+      <th scope="col">Организация</th>
+      <th scope="col">Ментор</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for student in students_list %}
+    <tr>
+      <td><a href="{{ student.id }}">{{ student }}</a></td>
+      <td>{{ student.university }}</td>
+      <td>{{ student.mentor }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

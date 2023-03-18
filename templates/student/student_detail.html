@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block container %}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Анкета студента</h5>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+          <dt class="col-sm-3">ФИО</dt>
+          <dd class="col-sm-9">{{ student }}</dd>
+          <dt class="col-sm-3">О студенте</dt>
+          <dd class="col-sm-9">{{ student.bio }}</dd>
+          <dt class="col-sm-3">Место учебы</dt>
+          <dd class="col-sm-9">{{ student.university }}</dd>
+          <dt class="col-sm-3">Год поступления</dt>
+          <dd class="col-sm-9">{{ student.admission_year }}</dd>
+          <dt class="col-sm-3">Номер телефона</dt>
+          <dd class="col-sm-9">{{ student.phone_number }}</dd>
+          <dt class="col-sm-3">E-mail</dt>
+          <dd class="col-sm-9">{{ student.email }}</dd>
+          <dt class="col-sm-3">Связь</dt>
+          <dd class="col-sm-9">{{ student.communication_other }}</dd>
+          <dt class="col-sm-3">Дата рождения</dt>
+          <dd class="col-sm-9">{{ student.birth_date }}</dd>
+          <dt class="col-sm-3">Наставник</dt>
+          <dd class="col-sm-9">{{ student.mentor }}</dd>
+          <a href="update" class="btn btn-primary">Редактировать</a>
+          <a href="delete" class="btn btn-danger">Удалить</a>
+        </dl>
+    </div>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Название</th>
+      <th scope="col">Наставник</th>
+      <th scope="col">Дата начала</th>
+      <th scope="col">Дата окончания</th>
+      <th scope="col">Статус</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for interaction in student.interactions_to_student.all %}
+    <tr>
+      <td>{{ interaction.interaction_name }}</td>
+      <td>{{ interaction.mentor }}</td>
+      <td>{{ interaction.start_date }}</td>
+      <td>{{ interaction.end_date }}</td>
+      <td>{{ interaction.status }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

@@ -4,7 +4,7 @@ from django.utils import timezone
 
 class Interaction(models.Model):
     interaction_name = models.TextField("Название")
-    type = models.ForeignKey("InteractionType", related_name="interactions_to_type",
+    type = models.ForeignKey("InteractionType",
                              verbose_name="Тип взаимодействия", on_delete=models.SET_NULL, null=True)
     mentor = models.ForeignKey("mentor.Profile", related_name="interactions_to_mentor",
                                verbose_name="Наставник", on_delete=models.SET_NULL, null=True)
@@ -26,7 +26,7 @@ class Interaction(models.Model):
 
 
 class InteractionType(models.Model):
-    type_name = models.TextField("Название типа взаимодействия")
+    type_name = models.CharField("Название типа взаимодействия", max_length=50)
 
     def __str__(self):
         return self.type_name
@@ -37,7 +37,7 @@ class InteractionType(models.Model):
 
 
 class Status(models.Model):
-    status_name = models.TextField("Название статуса")
+    status_name = models.CharField("Название статуса", max_length=50)
 
     def __str__(self):
         return self.status_name
