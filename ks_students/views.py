@@ -54,26 +54,3 @@ class StudentUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('student_detail', kwargs={'pk': self.object.id})
-
-
-
-class StudentListView(ListView):
-    model = Student
-
-    def get(self, request, *args, **kwargs):
-        student = Student.objects.get(pk=kwargs['student_id'])
-        initial_data = {}
-        if student:
-            initial_data = {'name': student.name, 'surname': student.surname, 'patronymic': student.patronymic,
-                            'bio': student.bio, 'university': student.university,
-                            'admission_year': student.admission_year, 'phone_number': student.phone_number,
-                            'email': student.email, 'communication_other': student.communication_other,
-                            'birth_date': student.birth_date, 'mentor': student.mentor}
-        form = forms.StudentForm(initial_data, instance=student)
-
-        mentors = Profile.objects.all()
-        interactions = Interaction.objects.filter(student=kwargs['student_id'])
-
-        return render(request, self.template_name, {'student': student if student else False,
-                                                    'mentors': mentors, 'interactions_list': interactions,
-                                                    'form': form})
