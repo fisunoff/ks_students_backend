@@ -6,6 +6,7 @@ from django.utils import timezone
 
 class Interaction(models.Model):
     interaction_name = models.TextField("Название")
+    description = models.TextField("Описание", blank=True, null=True)
     type = models.ForeignKey("InteractionType",
                              verbose_name="Тип взаимодействия", on_delete=models.SET_NULL, null=True)
     mentor = models.ForeignKey("mentor.Profile", related_name="interactions_to_mentor",

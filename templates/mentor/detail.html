@@ -7,19 +7,27 @@
     </div>
     <div class="card-body">
         <dl class="row">
-          <dt class="col-sm-3">ФИО</dt>
-          <dd class="col-sm-9">{{ mentor.surname }} {{ mentor.name }} {{ mentor.patronymic }}</dd>
-          <dt class="col-sm-3">О себе</dt>
-          <dd class="col-sm-9">{{ mentor.bio }}</dd>
-          <dt class="col-sm-3">Дата рождения</dt>
-          <dd class="col-sm-9">{{ mentor.birth_date }}</dd>
-          <dt class="col-sm-3">Должность</dt>
-          <dd class="col-sm-9">{{ mentor.position }}</dd>
-          <dt class="col-sm-3">Является наставником</dt>
+            <dt class="col-sm-3">ФИО</dt>
+            <dd class="col-sm-9">{{ mentor.surname }} {{ mentor.name }} {{ mentor.patronymic }}</dd>
+            <dt class="col-sm-3">О себе</dt>
+            <dd class="col-sm-9">{{ mentor.bio }}</dd>
+            <dt class="col-sm-3">Дата рождения</dt>
+            <dd class="col-sm-9">{{ mentor.birth_date }}</dd>
+            <dt class="col-sm-3">Должность</dt>
+            <dd class="col-sm-9">{{ mentor.position }}</dd>
+            <dt class="col-sm-3">Является наставником</dt>
             {% if mentor.mentor %}
                 <dt class="col-sm-9"><input class="form-check-input" type="checkbox" value="" id="MentorCheck" checked disabled></dt>
             {% else %}
                 <dt class="col-sm-9"><input class="form-check-input" type="checkbox" value="" id="MentorCheck" disabled></dt>
+            {% endif %}
+            <dt class="col-sm-3">Закрепленные студенты:</dt>
+            {% if mentor.students.all %}
+                {% for student in mentor.students.all %}
+                    <dt class="col-sm-9"><a href=/students/{{ student.id }}>{{ student }}</a></dt>
+                {% endfor %}
+            {% else %}
+                <dd class="col-sm-9">Отсутствуют</dd>
             {% endif %}
             {% if mentor.id == user.profile.id or user.is_superuser %}
                 <a href="update" class="btn btn-primary">Редактировать</a>

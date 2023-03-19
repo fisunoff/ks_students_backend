@@ -36,7 +36,7 @@ class InteractionsListView(ListView):
 class InteractionCreateView(CreateView):
     model = Interaction
     template_name = 'interaction/create.html'
-    fields = ('interaction_name', 'type', 'mentor', 'student', 'start_date', 'end_date', 'status')
+    fields = ('interaction_name', 'description', 'type', 'mentor', 'student', 'start_date', 'end_date', 'status')
     success_url = reverse_lazy('interactions-list')
 
 
@@ -59,7 +59,7 @@ class InteractionUpdateView(UpdateView):
     model = Interaction
     template_name = 'interaction/update.html'
     context_object_name = 'interaction'
-    fields = ('interaction_name', 'type', 'mentor', 'student', 'start_date', 'end_date', 'status')
+    fields = ('interaction_name', 'description', 'type', 'mentor', 'student', 'start_date', 'end_date', 'status')
 
     def get_success_url(self):
         self.object.time_edit = timezone.now()

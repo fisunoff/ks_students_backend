@@ -24,7 +24,7 @@
           <dt class="col-sm-3">Дата рождения</dt>
           <dd class="col-sm-9">{{ student.birth_date }}</dd>
           <dt class="col-sm-3">Наставник</dt>
-          <dd class="col-sm-9">{{ student.mentor }}</dd>
+            <dd class="col-sm-9"><a href="/mentors/{{ student.mentor.id }}">{{ student.mentor }}</a></dd>
           <a href="update" class="btn btn-primary">Редактировать</a>
           <a href="delete" class="btn btn-danger">Удалить</a>
         </dl>
