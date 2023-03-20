@@ -21,6 +21,7 @@ class Student(models.Model):
     time_create = models.DateTimeField(verbose_name="Дата создания учетной записи", default=timezone.now)
     mentor = models.ForeignKey("mentor.Profile", related_name="students", on_delete=models.SET_NULL,
                                blank=True, null=True)
+    photo = models.ImageField(verbose_name="Фото профиля", blank=True, null=True, upload_to='media/')
 
     def __str__(self):
         return f"{self.surname} {self.name} {self.patronymic if self.patronymic else ''}"
