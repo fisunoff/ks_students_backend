@@ -18,6 +18,7 @@ from django.urls import path, include
 from ks_students.views import StudentsListView, StudentCreateView, StudentUpdateView, StudentDeleteView, StudentDetailView
 from interaction.views import InteractionsListView, InteractionCreateView, InteractionDetailView, InteractionDeleteView, InteractionUpdateView
 from mentor.views import MentorsListView, MentorDetailView, MentorUpdateView
+from tags.views import TagsListView, TagDetailView, TagCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -38,4 +39,8 @@ urlpatterns = [
 
     path('accounts/', include('django.contrib.auth.urls')),
     path('', StudentsListView.as_view(template_name="student/students.html"), name='students_list'),
+
+    path('tags', TagsListView.as_view(), name='tags_list'),
+    path('tags/<int:pk>/', TagDetailView.as_view(), name='tag_detail'),
+    path('tags/create', TagCreateView.as_view(), name='tag_create'),
 ]

@@ -27,6 +27,12 @@
           <dd class="col-sm-9">{{ interaction.time_create }}</dd>
           <dt class="col-sm-3">Дата последнего изменения</dt>
           <dd class="col-sm-9">{{ interaction.time_edit }}</dd>
+            <dt class="col-sm-3">Теги</dt>
+            <dd class="col-sm-9">
+            {% for tag in interaction.tags.all %}
+                <a href="/tags/{{ tag.id }}">{{ tag }}</a>
+            {% endfor %}
+            </dd>
           <a href="update" class="btn btn-primary">Редактировать</a>
           <a href="delete" class="btn btn-danger">Удалить</a>
         </dl>

@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ks_students.apps.KsStudentsConfig',
     'mentor.apps.MentorConfig',
-    'interaction.apps.InteractionConfig'
+    'interaction.apps.InteractionConfig',
+    'tags.apps.TagsConfig'
 ]
 
 MIDDLEWARE = [

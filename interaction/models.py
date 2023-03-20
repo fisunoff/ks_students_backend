@@ -2,6 +2,7 @@ import datetime
 
 from django.db import models
 from django.utils import timezone
+from tags.models import Tag
 
 
 class Interaction(models.Model):
@@ -19,6 +20,7 @@ class Interaction(models.Model):
     end_date = models.DateField("Дата окончания", blank=True, null=True)
     status = models.ForeignKey("Status", related_name="interactions_to_status",
                                verbose_name="Статус", on_delete=models.SET_NULL, null=True, default="Новый")
+    tags = models.ManyToManyField(Tag, verbose_name="Технологии(теги)", related_name='interactions_by_tag')
 
     def __str__(self):
         return self.interaction_name

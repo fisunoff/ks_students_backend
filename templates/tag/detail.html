@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block container %}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">{{ tag}}</h5>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Название</th>
+                <th scope="col">Наставник</th>
+                <th scope="col">Дата начала</th>
+                <th scope="col">Дата окончания</th>
+                <th scope="col">Статус</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for interaction in tag.interactions_by_tag.all %}
+                    <tr>
+                        <td><a href="/interactions/{{ interaction.id }}">{{ interaction.interaction_name }}</a></td>
+                        <td><a href="/mentors/{{ interaction.mentor.id }}">{{ interaction.mentor }}</a></td>
+                        <td>{{ interaction.start_date }}</td>
+                        <td>{{ interaction.end_date }}</td>
+                        <td>{{ interaction.status }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

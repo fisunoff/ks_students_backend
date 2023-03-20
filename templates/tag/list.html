@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block container %}
+    <a href="/tags/create" class="btn btn-primary btn-lg">Создать</a>
+    <table class="table">
+        <tr>
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Название</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tag in tags %}
+                <tr>
+                    <td><a href="tags/{{ tag.id }}">{{ tag }}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+    {% if is_paginated %}
+        {% include "_pagination.html" %}
+    {% endif %}
+
+{% endblock %}
