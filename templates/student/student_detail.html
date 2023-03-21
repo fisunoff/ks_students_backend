@@ -24,7 +24,11 @@
           <dt class="col-sm-3">Дата рождения</dt>
           <dd class="col-sm-9">{{ student.birth_date }}</dd>
           <dt class="col-sm-3">Наставник</dt>
+            {% if student.mentor %}
             <dd class="col-sm-9"><a href="{% url 'mentor-detail' student.mentor.id %}">{{ student.mentor }}</a></dd>
+            {% else %}
+                <dd class="col-sm-9">Не задан</dd>
+            {% endif %}
             {% if student.photo %}
                 <dt class="col-sm-3">Фото</dt>
                     <dd class="col-sm-9">

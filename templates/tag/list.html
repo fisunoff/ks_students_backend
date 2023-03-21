@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block container %}
-    <a href="/tags/create" class="btn btn-primary btn-lg">Создать</a>
+    <a href="{% url 'tag-create' %}" class="btn btn-primary btn-lg">Создать</a>
     <table class="table">
         <tr>
             <thead class="thead-light">
