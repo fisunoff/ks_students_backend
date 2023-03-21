@@ -20,7 +20,11 @@
                 {% for interaction in tag.interactions_by_tag.all %}
                     <tr>
                         <td><a href="{% url 'interaction-detail' interaction.id %}">{{ interaction.interaction_name }}</a></td>
-                        <td><a href="{% url 'mentor-detail' interaction.mentor.id %}">{{ interaction.mentor }}</a></td>
+                        {% if interaction.mentor %}
+                            <td><a href="{% url 'mentor-detail' interaction.mentor.id %}">{{ interaction.mentor }}</a></td>
+                        {% else %}
+                            <dd class="col-sm-9">Не задан</dd>
+                        {% endif %}
                         <td>{{ interaction.start_date }}</td>
                         <td>{{ interaction.end_date }}</td>
                         <td>{{ interaction.status }}</td>
