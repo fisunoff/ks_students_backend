@@ -9,18 +9,19 @@ class Interaction(models.Model):
     interaction_name = models.TextField("Название")
     description = models.TextField("Описание", blank=True, null=True)
     type = models.ForeignKey("InteractionType",
-                             verbose_name="Тип взаимодействия", on_delete=models.SET_NULL, null=True)
+                             verbose_name="Тип взаимодействия", on_delete=models.SET_NULL, blank=True, null=True)
     mentor = models.ForeignKey("mentor.Profile", related_name="interactions_to_mentor",
-                               verbose_name="Наставник", on_delete=models.SET_NULL, null=True)
+                               verbose_name="Наставник", on_delete=models.SET_NULL, blank=True, null=True)
     student = models.ForeignKey("ks_students.Student", related_name="interactions_to_student",
-                                verbose_name="Студент", on_delete=models.SET_NULL, null=True)
+                                verbose_name="Студент", on_delete=models.SET_NULL, blank=True, null=True)
     time_create = models.DateTimeField("Дата создания", default=timezone.now)
     time_edit = models.DateTimeField("Дата последнего изменения", default=timezone.now)
     start_date = models.DateField("Дата начала", blank=True, null=True, default=datetime.date.today)
     end_date = models.DateField("Дата окончания", blank=True, null=True)
     status = models.ForeignKey("Status", related_name="interactions_to_status",
-                               verbose_name="Статус", on_delete=models.SET_NULL, null=True, default="Новый")
-    tags = models.ManyToManyField(Tag, verbose_name="Технологии(теги)", related_name='interactions_by_tag')
+                               verbose_name="Статус", on_delete=models.SET_NULL, blank=True, null=True, default="Новый")
+    tags = models.ManyToManyField(Tag, verbose_name="Технологии(теги)", related_name='interactions_by_tag',
+                                  blank=True, null=True)
 
     def __str__(self):
         return self.interaction_name
