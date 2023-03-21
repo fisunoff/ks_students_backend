@@ -16,7 +16,7 @@ class Interaction(models.Model):
                                 verbose_name="Студент", on_delete=models.SET_NULL, null=True)
     time_create = models.DateTimeField("Дата создания", default=timezone.now)
     time_edit = models.DateTimeField("Дата последнего изменения", default=timezone.now)
-    start_date = models.DateField("Дата начала", blank=True, null=True, default=datetime.date.today())
+    start_date = models.DateField("Дата начала", blank=True, null=True, default=datetime.date.today)
     end_date = models.DateField("Дата окончания", blank=True, null=True)
     status = models.ForeignKey("Status", related_name="interactions_to_status",
                                verbose_name="Статус", on_delete=models.SET_NULL, null=True, default="Новый")

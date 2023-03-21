@@ -25,7 +25,7 @@ class StudentCreateView(CreateView):
     template_name = 'student/student_create.html'
     fields = ('surname', 'name', 'patronymic', 'bio', 'university', 'admission_year', 'phone_number',
               'email', 'communication_other', 'birth_date', 'mentor', 'photo')
-    success_url = reverse_lazy('students_list')
+    success_url = reverse_lazy('students-list')
 
 
 class StudentDetailView(DetailView):
@@ -40,7 +40,7 @@ class StudentDetailView(DetailView):
 class StudentDeleteView(DeleteView):
     model = Student
     template_name = 'student/student_delete.html'
-    success_url = reverse_lazy('students_list')
+    success_url = reverse_lazy('students-list')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -53,4 +53,4 @@ class StudentUpdateView(UpdateView):
               'email', 'communication_other', 'birth_date', 'mentor', 'photo')
 
     def get_success_url(self):
-        return reverse_lazy('student_detail', kwargs={'pk': self.object.id})
+        return reverse_lazy('student-detail', kwargs={'pk': self.object.id})

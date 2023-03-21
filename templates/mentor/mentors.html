@@ -13,7 +13,7 @@
         <tbody>
             {% for mentor in mentors %}
             <tr>
-                <td><a href="mentors/{{ mentor.id }}">{{ mentor.surname }} {{ mentor.name }} {{ mentor.patronymic }}</a></td>
+                <td><a href="{% url 'mentor-detail' mentor.id %}">{{ mentor.surname }} {{ mentor.name }} {{ mentor.patronymic }}</a></td>
                 <td>{{mentor.position}}</td>
                 <td>{{mentor.mentor}}</td>
             </tr>

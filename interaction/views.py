@@ -64,4 +64,4 @@ class InteractionUpdateView(UpdateView):
     def get_success_url(self):
         self.object.time_edit = timezone.now()
         self.object.save()
-        return reverse_lazy('interaction_detail', kwargs={'pk': self.object.id})
+        return reverse_lazy('interaction-detail', kwargs={'pk': self.object.id})

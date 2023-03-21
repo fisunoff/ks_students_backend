@@ -12,7 +12,7 @@
             <tbody>
                 {% for tag in tags %}
                 <tr>
-                    <td><a href="tags/{{ tag.id }}">{{ tag }}</a></td>
+                    <td><a href="{% url 'tag-detail' tag.id %}">{{ tag }}</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

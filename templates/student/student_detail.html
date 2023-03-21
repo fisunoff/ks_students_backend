@@ -24,15 +24,15 @@
           <dt class="col-sm-3">Дата рождения</dt>
           <dd class="col-sm-9">{{ student.birth_date }}</dd>
           <dt class="col-sm-3">Наставник</dt>
-            <dd class="col-sm-9"><a href="/mentors/{{ student.mentor.id }}">{{ student.mentor }}</a></dd>
+            <dd class="col-sm-9"><a href="{% url 'mentor-detail' student.mentor.id %}">{{ student.mentor }}</a></dd>
             {% if student.photo %}
                 <dt class="col-sm-3">Фото</dt>
                     <dd class="col-sm-9">
                         <img src="{{ student.photo.url }}" alt="Фото не загружено" height="200">
                     </dd>
             {% endif %}
-          <a href="update" class="btn btn-primary">Редактировать</a>
-          <a href="delete" class="btn btn-danger">Удалить</a>
+          <a href="{% url 'student-update' student.id %}" class="btn btn-primary">Редактировать</a>
+          <a href="{% url 'student-delete' student.id %}" class="btn btn-danger">Удалить</a>
         </dl>
     </div>
 </div>

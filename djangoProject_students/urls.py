@@ -24,25 +24,26 @@ from tags.views import TagsListView, TagDetailView, TagCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('students/', StudentsListView.as_view(template_name="student/students.html"), name='students_list'),
-    path('students/create', StudentCreateView.as_view()),
-    path('students/<int:pk>/', StudentDetailView.as_view(), name='student_detail'),
-    path('students/<int:pk>/update', StudentUpdateView.as_view()),
-    path('students/<int:pk>/delete', StudentDeleteView.as_view(), name='student_delete'),
-    path('interactions', InteractionsListView.as_view(), name="interactions-list"),
-    path('interactions/create', InteractionCreateView.as_view()),
-    path('interactions/<int:pk>/', InteractionDetailView.as_view(), name='interaction_detail'),
-    path('interactions/<int:pk>/update', InteractionUpdateView.as_view(), name='interaction_update'),
-    path('interactions/<int:pk>/delete', InteractionDeleteView.as_view(), name='interaction_delete'),
+    path('students/', StudentsListView.as_view(template_name="student/students.html"), name='students-list'),
+    path('students/create/', StudentCreateView.as_view(), name='student-create'),
+    path('students/<int:pk>/', StudentDetailView.as_view(), name='student-detail'),
+    path('students/<int:pk>/update/', StudentUpdateView.as_view(), name='student-update'),
+    path('students/<int:pk>/delete/', StudentDeleteView.as_view(), name='student-delete'),
 
-    path('mentors', MentorsListView.as_view(), name="mentors-list"),
-    path('mentors/<int:pk>/', MentorDetailView.as_view(), name='mentor_detail'),
-    path('mentors/<int:pk>/update', MentorUpdateView.as_view(), name='mentor_update'),
+    path('interactions/', InteractionsListView.as_view(), name='interactions-list'),
+    path('interactions/create/', InteractionCreateView.as_view(), name='interaction-create'),
+    path('interactions/<int:pk>/', InteractionDetailView.as_view(), name='interaction-detail'),
+    path('interactions/<int:pk>/update/', InteractionUpdateView.as_view(), name='interaction-update'),
+    path('interactions/<int:pk>/delete/', InteractionDeleteView.as_view(), name='interaction-delete'),
+
+    path('mentors/', MentorsListView.as_view(), name="mentors-list"),
+    path('mentors/<int:pk>/', MentorDetailView.as_view(), name='mentor-detail'),
+    path('mentors/<int:pk>/update/', MentorUpdateView.as_view(), name='mentor-update'),
 
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', StudentsListView.as_view(template_name="student/students.html"), name='students_list'),
+    path('', StudentsListView.as_view(template_name="student/students.html"), name='students-list'),
 
-    path('tags', TagsListView.as_view(), name='tags_list'),
-    path('tags/<int:pk>/', TagDetailView.as_view(), name='tag_detail'),
-    path('tags/create', TagCreateView.as_view(), name='tag_create'),
+    path('tags/', TagsListView.as_view(), name='tags-list'),
+    path('tags/<int:pk>/', TagDetailView.as_view(), name='tag-detail'),
+    path('tags/create/', TagCreateView.as_view(), name='tag-create'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

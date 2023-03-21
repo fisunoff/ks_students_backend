@@ -14,9 +14,9 @@
           <dt class="col-sm-3">Описание</dt>
           <dd class="col-sm-9">{{ interaction.description }}</dd>
           <dt class="col-sm-3">Наставник</dt>
-            <dd class="col-sm-9"><a href="/mentors/{{ interaction.mentor.id }}">{{ interaction.mentor }}</a></dd>
+            <dd class="col-sm-9"><a href="{% url 'mentor-detail' interaction.mentor.id %}">{{ interaction.mentor }}</a></dd>
           <dt class="col-sm-3">ФИО студента</dt>
-          <dd class="col-sm-9"><a href="/students/{{ interaction.student.id }}">{{ interaction.student }}</a></dd>
+          <dd class="col-sm-9"><a href="{% url 'student-detail' interaction.student.id %}">{{ interaction.student }}</a></dd>
           <dt class="col-sm-3">Дата начала</dt>
           <dd class="col-sm-9">{{ interaction.start_date }}</dd>
           <dt class="col-sm-3">Дата окончания</dt>
@@ -30,11 +30,11 @@
             <dt class="col-sm-3">Теги</dt>
             <dd class="col-sm-9">
             {% for tag in interaction.tags.all %}
-                <a href="/tags/{{ tag.id }}">{{ tag }}</a>
+                <a href="{% url 'tag-detail' tag.id %}">{{ tag }}</a>
             {% endfor %}
             </dd>
-          <a href="update" class="btn btn-primary">Редактировать</a>
-          <a href="delete" class="btn btn-danger">Удалить</a>
+          <a href="{% url 'interaction-update' interaction.id %}" class="btn btn-primary">Редактировать</a>
+          <a href="{% url 'interaction-delete' interaction.id %}" class="btn btn-danger">Удалить</a>
         </dl>
     </div>
 </div>

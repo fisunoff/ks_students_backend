@@ -42,4 +42,4 @@ class TagCreateView(CreateView):
     model = Tag
     template_name = 'tag/create.html'
     fields = ('tag_name', )
-    success_url = reverse_lazy('tags_list')
+    success_url = reverse_lazy('tags-list')

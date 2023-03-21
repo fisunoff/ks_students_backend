@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block container %}
 <h1>Список студентов</h1>
-<a href="/students/create" class="btn btn-primary btn-lg">Создать</a>
+<a href="{% url 'student-create' %}" class="btn btn-primary btn-lg">Создать</a>
 <table class="table">
   <thead>
     <tr>
@@ -13,7 +13,7 @@
   <tbody>
   {% for student in students_list %}
     <tr>
-      <td><a href="/students/{{ student.id }}">{{ student }}</a></td>
+      <td><a href="{% url 'student-detail' student.id %}">{{ student }}</a></td>
       <td>{{ student.university }}</td>
       <td>{{ student.mentor }}</td>
     </tr>
