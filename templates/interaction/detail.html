@@ -14,9 +14,17 @@
           <dt class="col-sm-3">Описание</dt>
           <dd class="col-sm-9">{{ interaction.description }}</dd>
           <dt class="col-sm-3">Наставник</dt>
-            <dd class="col-sm-9"><a href="{% url 'mentor-detail' interaction.mentor.id %}">{{ interaction.mentor }}</a></dd>
+            {% if interaction.mentor %}
+                <dd class="col-sm-9"><a href="{% url 'mentor-detail' interaction.mentor.id %}">{{ interaction.mentor }}</a></dd>
+            {% else %}
+                <dd class="col-sm-9">Не задан</dd>
+            {% endif %}
           <dt class="col-sm-3">ФИО студента</dt>
-          <dd class="col-sm-9"><a href="{% url 'student-detail' interaction.student.id %}">{{ interaction.student }}</a></dd>
+            {% if interaction.student %}
+                <dd class="col-sm-9"><a href="{% url 'student-detail' interaction.student.id %}">{{ interaction.student }}</a></dd>
+            {% else %}
+                <dd class="col-sm-9">Не задан</dd>
+            {% endif %}
           <dt class="col-sm-3">Дата начала</dt>
           <dd class="col-sm-9">{{ interaction.start_date }}</dd>
           <dt class="col-sm-3">Дата окончания</dt>
