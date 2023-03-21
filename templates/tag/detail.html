@@ -23,7 +23,7 @@
                         {% if interaction.mentor %}
                             <td><a href="{% url 'mentor-detail' interaction.mentor.id %}">{{ interaction.mentor }}</a></td>
                         {% else %}
-                            <dd class="col-sm-9">Не задан</dd>
+                            <td>Не задан</td>
                         {% endif %}
                         <td>{{ interaction.start_date }}</td>
                         <td>{{ interaction.end_date }}</td>
