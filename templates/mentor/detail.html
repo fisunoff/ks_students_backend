@@ -38,6 +38,7 @@
             {% endif %}
             {% if mentor.id == user.profile.id %}
                 <a href="{% url 'logout' %}" class="btn btn-danger">Выйти</a>
+                <a href="{% url 'password_change' %}" class="btn btn-warning">Смена пароля</a>
             {% endif %}
         </dl>
     </div>
