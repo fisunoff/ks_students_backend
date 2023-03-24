@@ -11,6 +11,9 @@ class Tag(models.Model):
     def __str__(self):
         return self.tag_name
 
+    def get_count(self):
+        return self.interactions_by_tag.count()
+
     class Meta:
         verbose_name = "Тег"
         verbose_name_plural = "Теги"

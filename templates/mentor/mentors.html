@@ -13,9 +13,13 @@
         <tbody>
             {% for mentor in mentors %}
             <tr>
-                <td><a href="{% url 'mentor-detail' mentor.id %}">{{ mentor.surname }} {{ mentor.name }} {{ mentor.patronymic }}</a></td>
-                <td>{{mentor.position}}</td>
-                <td>{{mentor.mentor}}</td>
+                <td><a href="{% url 'mentor-detail' mentor.id %}">{{ mentor.surname }} {{ mentor.name }} {{ mentor.patronymic|default_if_none:"" }}</a></td>
+                <td>{{mentor.position|default_if_none:"&#10060"}}</td>
+                {% if mentor.mentor %}
+                    <td>&#9989</td>
+                {% else %}
+                    <td>&#10060</td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>

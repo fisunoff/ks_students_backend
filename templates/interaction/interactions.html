@@ -18,11 +18,11 @@
             {% for interaction in interactions %}
             <tr>
                 <td><a href="{% url 'interaction-detail' interaction.id %}">{{ interaction.interaction_name }}</a></td>
-                <td>{{interaction.mentor}}</td>
-                <td>{{interaction.student}}</td>
-                <td>{{interaction.start_date}}</td>
-                <td>{{interaction.end_date}}</td>
-                <td>{{interaction.status}}</td>
+                <td>{{interaction.mentor|default_if_none:"&#10060"}}</td>
+                <td>{{interaction.student|default_if_none:"&#10060"}}</td>
+                <td>{{interaction.start_date|default_if_none:"&#10060"}}</td>
+                <td>{{interaction.end_date|default_if_none:"&#10060"}}</td>
+                <td>{{interaction.status|default_if_none:"&#10060"}}</td>
             </tr>
             {% endfor %}
         </tbody>

@@ -7,12 +7,14 @@
             <thead class="thead-light">
                 <tr>
                     <th scope="col">Название</th>
+                    <th scope="col">Количество взаимодействий</th>
                 </tr>
             </thead>
             <tbody>
                 {% for tag in tags %}
                 <tr>
                     <td><a href="{% url 'tag-detail' tag.id %}">{{ tag }}</a></td>
+                    <td>{{ tag.get_count }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -25,9 +25,9 @@
                         {% else %}
                             <td>Не задан</td>
                         {% endif %}
-                        <td>{{ interaction.start_date }}</td>
-                        <td>{{ interaction.end_date }}</td>
-                        <td>{{ interaction.status }}</td>
+                        <td>{{ interaction.start_date|default_if_none:"&#10060" }}</td>
+                        <td>{{ interaction.end_date|default_if_none:"&#10060" }}</td>
+                        <td>{{ interaction.status|default_if_none:"&#10060" }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
