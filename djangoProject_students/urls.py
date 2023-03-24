@@ -18,35 +18,20 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from django.urls import path, include
-from ks_students.views import StudentsListView, StudentCreateView, StudentUpdateView, StudentDeleteView, StudentDetailView
-from interaction.views import InteractionsListView, InteractionCreateView, InteractionDetailView, InteractionDeleteView, InteractionUpdateView
-from mentor.views import MentorsListView, MentorDetailView, MentorUpdateView
-from tags.views import TagsListView, TagDetailView, TagCreateView
+from ks_students.views import StudentsListView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('students/', StudentsListView.as_view(template_name="student/students.html"), name='students-list'),
-    path('students/create/', StudentCreateView.as_view(), name='student-create'),
-    path('students/<int:pk>/', StudentDetailView.as_view(), name='student-detail'),
-    path('students/<int:pk>/update/', StudentUpdateView.as_view(), name='student-update'),
-    path('students/<int:pk>/delete/', StudentDeleteView.as_view(), name='student-delete'),
 
-    path('interactions/', InteractionsListView.as_view(), name='interactions-list'),
-    path('interactions/create/', InteractionCreateView.as_view(), name='interaction-create'),
-    path('interactions/<int:pk>/', InteractionDetailView.as_view(), name='interaction-detail'),
-    path('interactions/<int:pk>/update/', InteractionUpdateView.as_view(), name='interaction-update'),
-    path('interactions/<int:pk>/delete/', InteractionDeleteView.as_view(), name='interaction-delete'),
-
-    path('mentors/', MentorsListView.as_view(), name="mentors-list"),
-    path('mentors/<int:pk>/', MentorDetailView.as_view(), name='mentor-detail'),
-    path('mentors/<int:pk>/update/', MentorUpdateView.as_view(), name='mentor-update'),
+    path('students/', include('ks_students.urls')),
+    path('interactions/', include('interaction.urls')),
+    path('mentors/', include('mentor.urls')),
+    path('tags/', include('tags.urls')),
 
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/password-change/', PasswordChangeView.as_view(template_name='registration/password_change_form.html'), name='password_change'),
     path('accounts/password-change/done/', PasswordChangeDoneView.as_view(), name='password_change_done'),
     path('', StudentsListView.as_view(template_name="student/students.html"), name='students-list'),
 
-    path('tags/', TagsListView.as_view(), name='tags-list'),
-    path('tags/<int:pk>/', TagDetailView.as_view(), name='tag-detail'),
-    path('tags/create/', TagCreateView.as_view(), name='tag-create'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
