@@ -22,6 +22,13 @@ class Interaction(models.Model):
                                verbose_name="Статус", on_delete=models.SET_NULL, blank=True, null=True, default="Новый")
     tags = models.ManyToManyField(Tag, verbose_name="Технологии(теги)", related_name='interactions_by_tag',
                                   blank=True, null=True)
+    file = models.FileField(verbose_name="Прикрепленный файл", blank=True, null=True, upload_to='media/')
+
+    def get_file_name(self):
+        if self.file:
+            return self.file.name.split("/")[-1]
+        else:
+            return None
 
     def __str__(self):
         return self.interaction_name

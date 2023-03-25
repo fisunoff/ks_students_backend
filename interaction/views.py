@@ -36,7 +36,8 @@ class InteractionsListView(ListView):
 class InteractionCreateView(CreateView):
     model = Interaction
     template_name = 'interaction/create.html'
-    fields = ('interaction_name', 'description', 'type', 'mentor', 'student', 'start_date', 'end_date', 'status', 'tags')
+    fields = ('interaction_name', 'description', 'type', 'mentor', 'student', 'start_date', 'end_date', 'status',
+              'tags', 'file')
     success_url = reverse_lazy('interactions-list')
 
 
@@ -44,6 +45,12 @@ class InteractionDetailView(DetailView):
     model = Interaction
     template_name = 'interaction/detail.html'
     context_object_name = 'interaction'
+
+    def get_context_data(self, **kwargs):
+        context = super(InteractionDetailView, self).get_context_data(**kwargs)
+        context['filename'] = self.object.get_file_name()
+        return context
+
 
 
 @method_decorator(login_required, name='dispatch')
@@ -59,7 +66,8 @@ class InteractionUpdateView(UpdateView):
     model = Interaction
     template_name = 'interaction/update.html'
     context_object_name = 'interaction'
-    fields = ('interaction_name', 'description', 'type', 'mentor', 'student', 'start_date', 'end_date', 'status', 'tags')
+    fields = ('interaction_name', 'description', 'type', 'mentor', 'student', 'start_date', 'end_date', 'status',
+              'tags', 'file')
 
     def get_success_url(self):
         self.object.time_edit = timezone.now()
