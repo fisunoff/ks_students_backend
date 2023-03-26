@@ -68,9 +68,12 @@ class InteractionDetailView(DetailView):
         context['filename'] = self.object.get_file_name()
         tags = ",".join([str(i.id) for i in self.object.tags.all()])
         context['to_copy'] = f"?interaction_name={self.object.interaction_name}&description={self.object.description}" \
-                             f"&type={self.object.type.id}&mentor={self.object.mentor.id}&student={self.object.student.id}" \
+                             f"&type={self.object.type.id if self.object.type else None}" \
+                             f"&mentor={self.object.mentor.id if self.object.mentor else None}" \
+                             f"&student={self.object.student.id if self.object.student else None}" \
                              f"&start_date={self.object.start_date}&end_date={self.object.end_date}" \
-                             f"&status={self.object.status.id}&tags={tags}"
+                             f"&status={self.object.status.id if self.object.status else None}" \
+                             f"&tags={tags}"
         return context
 
 
