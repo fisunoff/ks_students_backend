@@ -31,6 +31,13 @@ class InteractionsListView(ListView):
         context['interactions'] = interactions
         return context
 
+    def get_queryset(self):
+        order_by = self.request.GET.get('order_by') or '-interaction_name'
+        if order_by not in ['interaction_name', 'mentor', 'start_date', 'end_date', 'status']:
+            order_by = 'interaction_name'
+        qs = super().get_queryset()
+        return qs.order_by(order_by)
+
 
 @method_decorator(login_required, name='dispatch')
 class InteractionCreateView(CreateView):
@@ -39,6 +46,16 @@ class InteractionCreateView(CreateView):
     fields = ('interaction_name', 'description', 'type', 'mentor', 'student', 'start_date', 'end_date', 'status',
               'tags', 'file')
     success_url = reverse_lazy('interactions-list')
+
+    def get_initial(self):
+        initial_data = {}
+        for i in ['interaction_name', 'student', 'description', 'type', 'mentor', 'start_date', 'end_date',
+                  'status', 'tags']:
+            initial_data[i] = self.request.GET.get(i)
+        tags_request = self.request.GET.get('tags')
+        if tags_request:
+            initial_data['tags'] = list(map(int, self.request.GET.get('tags').split(",")))
+        return initial_data
 
 
 class InteractionDetailView(DetailView):
@@ -49,8 +66,12 @@ class InteractionDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(InteractionDetailView, self).get_context_data(**kwargs)
         context['filename'] = self.object.get_file_name()
+        tags = ",".join([str(i.id) for i in self.object.tags.all()])
+        context['to_copy'] = f"?interaction_name={self.object.interaction_name}&description={self.object.description}" \
+                             f"&type={self.object.type.id}&mentor={self.object.mentor.id}&student={self.object.student.id}" \
+                             f"&start_date={self.object.start_date}&end_date={self.object.end_date}" \
+                             f"&status={self.object.status.id}&tags={tags}"
         return context
-
 
 
 @method_decorator(login_required, name='dispatch')

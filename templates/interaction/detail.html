@@ -48,7 +48,9 @@
                     {% endfor %}
                 </dd>
                 <a href="{% url 'interaction-update' interaction.id %}" class="btn btn-primary">Редактировать</a>
+                <a href="{% url 'interaction-create' %}{{ to_copy }}" class="btn btn-secondary">Копировать</a>
                 <a href="{% url 'interaction-delete' interaction.id %}" class="btn btn-danger">Удалить</a>
+
             </dl>
         </div>
     </div>
