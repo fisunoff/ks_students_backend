@@ -1,23 +1,6 @@
 {% extends "base.html" %}
 {% block container %}
-<h1>Студенты <a href="{% url 'student-create' %}" class="btn btn-primary btn-lg">Создать</a></h1>
-
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">ФИО</th>
-      <th scope="col">Организация</th>
-      <th scope="col">Ментор</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for student in students_list %}
-    <tr>
-      <td><a href="{% url 'student-detail' student.id %}">{{ student }}</a></td>
-      <td>{{ student.university|default_if_none:"&#10060" }}</td>
-      <td>{{ student.mentor|default_if_none:"&#10060" }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    {% load render_table from django_tables2 %}
+    <h1>Студенты <a href="{% url 'student-create' %}" class="btn btn-primary btn-lg">Создать</a></h1>
+    {% render_table table %}
 {% endblock %}

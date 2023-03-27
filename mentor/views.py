@@ -1,37 +1,21 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+from django.views.generic import UpdateView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils import timezone
 from mentor.models import Profile
+from django_tables2 import SingleTableView
+from mentor.tables import MentorTable
 
 
 @method_decorator(login_required, name='dispatch')
-class MentorsListView(ListView):
+class MentorsListView(SingleTableView):
     model = Profile
-
+    table_class = MentorTable
     template_name = 'mentor/mentors.html'
-    context_object_name = 'mentors'
-    paginate_by = 10
-
-    def get_context_data(self, **kwargs):
-        context = super(MentorsListView, self).get_context_data(**kwargs)
-        mentors = self.get_queryset()
-        page = self.request.GET.get('page')
-        paginator = Paginator(mentors, self.paginate_by)
-        try:
-            mentors = paginator.page(page)
-        except PageNotAnInteger:
-            mentors = paginator.page(1)
-        except EmptyPage:
-            mentors = paginator.page(paginator.num_pages)
-        context['mentors'] = mentors
-        return context
-
 
 @method_decorator(login_required, name='dispatch')
 class MentorDetailView(DetailView):

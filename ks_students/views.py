@@ -6,15 +6,15 @@ from ks_students.models import Student
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
+from django_tables2 import SingleTableView
+from ks_students.tables import StudentTable
 
 
 @method_decorator(login_required, name='dispatch')
-class StudentsListView(ListView):
+class StudentsListView(SingleTableView):
     model = Student
-
-    def get(self, request, *args, **kwargs):
-        students = self.get_queryset().all()
-        return render(request, self.template_name, {'students_list': students})
+    table_class = StudentTable
+    template_name = 'student/students.html'
 
 
 @method_decorator(login_required, name='dispatch')

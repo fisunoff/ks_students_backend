@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 
 # Create your models here.
@@ -20,13 +21,17 @@ class Student(models.Model):
     birth_date = models.DateField(verbose_name="Дата рождения", blank=True, null=True)
     time_create = models.DateTimeField(verbose_name="Дата создания учетной записи", default=timezone.now)
     mentor = models.ForeignKey("mentor.Profile", related_name="students", on_delete=models.SET_NULL,
-                               blank=True, null=True)
+                               blank=True, null=True, verbose_name="Наставник")
     photo = models.ImageField(verbose_name="Фото профиля", blank=True, null=True, upload_to='media/')
 
     def __str__(self):
         return f"{self.surname} {self.name} {self.patronymic if self.patronymic else ''}"
 
+    def get_absolute_url(self):
+        return reverse('student-detail', kwargs={'slug': self.id})  # new
+
     class Meta:
         verbose_name = "Студент"
         verbose_name_plural = "Студенты"
         unique_together = ['name', 'surname', 'patronymic']
+        ordering = ['surname', 'name', 'patronymic']

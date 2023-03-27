@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_tables2',
     'ks_students.apps.KsStudentsConfig',
     'mentor.apps.MentorConfig',
     'interaction.apps.InteractionConfig',

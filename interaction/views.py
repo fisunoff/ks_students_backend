@@ -5,39 +5,17 @@ from django.views.generic import ListView, CreateView, UpdateView, DetailView, D
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils import timezone
 from interaction.models import Interaction
+from django_tables2 import SingleTableView
+from interaction.tables import InteractionTable
 
 
 @method_decorator(login_required, name='dispatch')
-class InteractionsListView(ListView):
+class InteractionsListView(SingleTableView):
     model = Interaction
-
     template_name = 'interaction/interactions.html'
-    context_object_name = 'interactions'
-    paginate_by = 10
-
-    def get_context_data(self, **kwargs):
-        context = super(InteractionsListView, self).get_context_data(**kwargs)
-        interactions = self.get_queryset()
-        page = self.request.GET.get('page')
-        paginator = Paginator(interactions, self.paginate_by)
-        try:
-            interactions = paginator.page(page)
-        except PageNotAnInteger:
-            interactions = paginator.page(1)
-        except EmptyPage:
-            interactions = paginator.page(paginator.num_pages)
-        context['interactions'] = interactions
-        return context
-
-    def get_queryset(self):
-        order_by = self.request.GET.get('order_by') or '-interaction_name'
-        if order_by not in ['interaction_name', 'mentor', 'start_date', 'end_date', 'status']:
-            order_by = 'interaction_name'
-        qs = super().get_queryset()
-        return qs.order_by(order_by)
+    table_class = InteractionTable
 
 
 @method_decorator(login_required, name='dispatch')

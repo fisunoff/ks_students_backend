@@ -11,6 +11,7 @@ class Tag(models.Model):
     def __str__(self):
         return self.tag_name
 
+    @property
     def get_count(self):
         return self.interactions_by_tag.count()
 
