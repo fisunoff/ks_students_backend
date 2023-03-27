@@ -10,6 +10,7 @@ from django.utils import timezone
 from mentor.models import Profile
 
 
+@method_decorator(login_required, name='dispatch')
 class MentorsListView(ListView):
     model = Profile
 
@@ -32,6 +33,7 @@ class MentorsListView(ListView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class MentorDetailView(DetailView):
     model = Profile
     template_name = 'mentor/detail.html'

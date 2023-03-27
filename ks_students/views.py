@@ -3,14 +3,12 @@ from django.shortcuts import render
 # Create your views here.
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 from ks_students.models import Student
-from mentor.models import Profile
-from interaction.models import Interaction
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
-from ks_students import forms
 
 
+@method_decorator(login_required, name='dispatch')
 class StudentsListView(ListView):
     model = Student
 
@@ -28,12 +26,12 @@ class StudentCreateView(CreateView):
     success_url = reverse_lazy('students-list')
 
 
+@method_decorator(login_required, name='dispatch')
 class StudentDetailView(DetailView):
 
     model = Student
     template_name = 'student/student_detail.html'
     context_object_name = 'student'
-
 
 
 @method_decorator(login_required, name='dispatch')

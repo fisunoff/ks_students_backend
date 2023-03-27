@@ -9,6 +9,7 @@ from tags.models import Tag
 # Create your views here.
 
 
+@method_decorator(login_required, name='dispatch')
 class TagsListView(ListView):
     model = Tag
 
@@ -31,6 +32,7 @@ class TagsListView(ListView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class TagDetailView(DetailView):
     model = Tag
     template_name = 'tag/detail.html'

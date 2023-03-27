@@ -10,6 +10,7 @@ from django.utils import timezone
 from interaction.models import Interaction
 
 
+@method_decorator(login_required, name='dispatch')
 class InteractionsListView(ListView):
     model = Interaction
 
@@ -58,6 +59,7 @@ class InteractionCreateView(CreateView):
         return initial_data
 
 
+@method_decorator(login_required, name='dispatch')
 class InteractionDetailView(DetailView):
     model = Interaction
     template_name = 'interaction/detail.html'
