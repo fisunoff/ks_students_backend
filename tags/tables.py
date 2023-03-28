@@ -3,7 +3,7 @@ from tags.models import Tag
 
 
 class TagsTable(tables.Table):
-    edit = tables.TemplateColumn('<a href="{% url \'tag-detail\' record.id %}">🛈</a>', orderable=False,
+    edit = tables.TemplateColumn('<a href="{% url \'tag-detail\' record.id %}">&#128203;</a>', orderable=False,
                                  verbose_name="")
     get_count = tables.TemplateColumn("{{ record.get_count }}", verbose_name="Количество записей" , orderable=False)
 
