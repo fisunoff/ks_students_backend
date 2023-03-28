@@ -2,15 +2,15 @@
 
 {% block container %}
 {% if form.errors %}
-  <p>Your username and password didn't match. Please try again.</p>
+  <p>Пара логин/пароль не подходит. Пожалуйста, попробуйте снова</p>
 {% endif %}
 
 {% if next %}
   {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
+    <p>Недостаточно прав для доступа к этой странице.
+    Пожалуйста, войдите в свой аккаунт</p>
   {% else %}
-    <p>Please login to see this page.</p>
+    <p>Пожалуйста, войдите в свой аккаунт.</p>
   {% endif %}
 {% endif %}
 

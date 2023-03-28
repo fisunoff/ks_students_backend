@@ -3,7 +3,7 @@ from mentor.models import Profile
 
 
 class MentorTable(tables.Table):
-    edit = tables.TemplateColumn('<a href="{% url \'mentor-detail\' record.id %}">&#128269;</a>', orderable=False,
+    edit = tables.TemplateColumn('<a href="{% url \'mentor-detail\' record.id %}">🛈</a>', orderable=False,
                                  verbose_name="")
 
     class Meta:

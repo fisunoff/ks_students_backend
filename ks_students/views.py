@@ -1,24 +1,20 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+from djangoProject_students.edited_views import CreateViewDecorated, SingleTableViewDecorated, DetailViewDecorated,\
+    DeleteViewDecorated, UpdateViewDecorated
 from ks_students.models import Student
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
-from django_tables2 import SingleTableView
 from ks_students.tables import StudentTable
 
 
-@method_decorator(login_required, name='dispatch')
-class StudentsListView(SingleTableView):
+class StudentsListView(SingleTableViewDecorated):
     model = Student
     table_class = StudentTable
     template_name = 'student/students.html'
 
 
-@method_decorator(login_required, name='dispatch')
-class StudentCreateView(CreateView):
+class StudentCreateView(CreateViewDecorated):
     model = Student
     template_name = 'student/student_create.html'
     fields = ('surname', 'name', 'patronymic', 'bio', 'university', 'admission_year', 'phone_number',
@@ -26,23 +22,19 @@ class StudentCreateView(CreateView):
     success_url = reverse_lazy('students-list')
 
 
-@method_decorator(login_required, name='dispatch')
-class StudentDetailView(DetailView):
-
+class StudentDetailView(DetailViewDecorated):
     model = Student
     template_name = 'student/student_detail.html'
     context_object_name = 'student'
 
 
-@method_decorator(login_required, name='dispatch')
-class StudentDeleteView(DeleteView):
+class StudentDeleteView(DeleteViewDecorated):
     model = Student
     template_name = 'student/student_delete.html'
     success_url = reverse_lazy('students-list')
 
 
-@method_decorator(login_required, name='dispatch')
-class StudentUpdateView(UpdateView):
+class StudentUpdateView(UpdateViewDecorated):
 
     model = Student
     template_name = 'student/student_update.html'

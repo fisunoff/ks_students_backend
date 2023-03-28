@@ -3,7 +3,7 @@ from ks_students.models import Student
 
 
 class StudentTable(tables.Table):
-    edit = tables.TemplateColumn('<a href="{% url \'student-detail\' record.id %}">&#128269;</a>', orderable=False,
+    edit = tables.TemplateColumn('<a href="{% url \'student-detail\' record.id %}">🛈</a>', orderable=False,
                                  verbose_name="")
 
     class Meta:

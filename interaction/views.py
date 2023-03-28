@@ -1,25 +1,21 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
+from djangoProject_students.edited_views import CreateViewDecorated, SingleTableViewDecorated, DetailViewDecorated,\
+    DeleteViewDecorated, UpdateViewDecorated
 from django.urls import reverse_lazy
 from django.utils import timezone
 from interaction.models import Interaction
-from django_tables2 import SingleTableView
 from interaction.tables import InteractionTable
 
 
-@method_decorator(login_required, name='dispatch')
-class InteractionsListView(SingleTableView):
+class InteractionsListView(SingleTableViewDecorated):
     model = Interaction
     template_name = 'interaction/interactions.html'
     table_class = InteractionTable
 
 
-@method_decorator(login_required, name='dispatch')
-class InteractionCreateView(CreateView):
+class InteractionCreateView(CreateViewDecorated):
     model = Interaction
     template_name = 'interaction/create.html'
     fields = ('interaction_name', 'description', 'type', 'mentor', 'student', 'start_date', 'end_date', 'status',
@@ -37,8 +33,7 @@ class InteractionCreateView(CreateView):
         return initial_data
 
 
-@method_decorator(login_required, name='dispatch')
-class InteractionDetailView(DetailView):
+class InteractionDetailView(DetailViewDecorated):
     model = Interaction
     template_name = 'interaction/detail.html'
     context_object_name = 'interaction'
@@ -57,15 +52,13 @@ class InteractionDetailView(DetailView):
         return context
 
 
-@method_decorator(login_required, name='dispatch')
-class InteractionDeleteView(DeleteView):
+class InteractionDeleteView(DeleteViewDecorated):
     model = Interaction
     template_name = 'interaction/delete.html'
     success_url = reverse_lazy('interactions-list')
 
 
-@method_decorator(login_required, name='dispatch')
-class InteractionUpdateView(UpdateView):
+class InteractionUpdateView(UpdateViewDecorated):
 
     model = Interaction
     template_name = 'interaction/update.html'
