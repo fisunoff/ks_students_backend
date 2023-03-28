@@ -1,57 +1,59 @@
-{% extends "base.html" %}
+{% include "base.html" with page_title=interaction.interaction_name %}
 {% block container %}
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Карточка взаимодействия</h5>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">Название</dt>
+                    <dd class="col-sm-9">{{ interaction.interaction_name }}</dd>
+                    <dt class="col-sm-3">Тип</dt>
+                    <dd class="col-sm-9">{{ interaction.type|default_if_none:"&#10060" }}</dd>
+                    <dt class="col-sm-3">Описание</dt>
+                    <dd class="col-sm-9">{{ interaction.description|default_if_none:"&#10060" }}</dd>
+                    <dt class="col-sm-3">Наставник</dt>
+                    {% if interaction.mentor %}
+                        <dd class="col-sm-9"><a
+                                href="{% url 'mentor-detail' interaction.mentor.id %}">{{ interaction.mentor }}</a></dd>
+                    {% else %}
+                        <dd class="col-sm-9">Не задан</dd>
+                    {% endif %}
+                    <dt class="col-sm-3">ФИО студента</dt>
+                    {% if interaction.student %}
+                        <dd class="col-sm-9"><a
+                                href="{% url 'student-detail' interaction.student.id %}">{{ interaction.student }}</a>
+                        </dd>
+                    {% else %}
+                        <dd class="col-sm-9">Не задан</dd>
+                    {% endif %}
+                    <dt class="col-sm-3">Дата начала</dt>
+                    <dd class="col-sm-9">{{ interaction.start_date|default_if_none:"&#10060" }}</dd>
+                    <dt class="col-sm-3">Дата окончания</dt>
+                    <dd class="col-sm-9">{{ interaction.end_date|default_if_none:"&#10060" }}</dd>
+                    <dt class="col-sm-3">Статус</dt>
+                    <dd class="col-sm-9">{{ interaction.status|default_if_none:"&#10060" }}</dd>
+                    <dt class="col-sm-3">Дата создания</dt>
+                    <dd class="col-sm-9">{{ interaction.time_create|default_if_none:"&#10060" }}</dd>
+                    <dt class="col-sm-3">Дата последнего изменения</dt>
+                    <dd class="col-sm-9">{{ interaction.time_edit|default_if_none:"&#10060" }}</dd>
+                    {% if interaction.file %}
+                        <dt class="col-sm-3">Прикрепленный документ</dt>
+                        <dd class="col-sm-9"><a href={{ interaction.file.url }} download> {{ filename }} </a></dd>
+                    {% endif %}
+                    <dt class="col-sm-3">Теги</dt>
+                    <dd class="col-sm-9">
+                        {% for tag in interaction.tags.all %}
+                            <a href="{% url 'tag-detail' tag.id %}">{{ tag }}</a>
+                        {% endfor %}
+                    </dd>
+                    <a href="{% url 'interaction-update' interaction.id %}" class="btn btn-primary">Редактировать</a>
+                    <a href="{% url 'interaction-create' %}{{ to_copy }}" class="btn btn-secondary">Копировать</a>
+                    <a href="{% url 'interaction-delete' interaction.id %}" class="btn btn-danger">Удалить</a>
 
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title">Карточка взаимодействия</h5>
-        </div>
-        <div class="card-body">
-            <dl class="row">
-                <dt class="col-sm-3">Название</dt>
-                <dd class="col-sm-9">{{ interaction.interaction_name }}</dd>
-                <dt class="col-sm-3">Тип</dt>
-                <dd class="col-sm-9">{{ interaction.type|default_if_none:"&#10060" }}</dd>
-                <dt class="col-sm-3">Описание</dt>
-                <dd class="col-sm-9">{{ interaction.description|default_if_none:"&#10060" }}</dd>
-                <dt class="col-sm-3">Наставник</dt>
-                {% if interaction.mentor %}
-                    <dd class="col-sm-9"><a
-                            href="{% url 'mentor-detail' interaction.mentor.id %}">{{ interaction.mentor }}</a></dd>
-                {% else %}
-                    <dd class="col-sm-9">Не задан</dd>
-                {% endif %}
-                <dt class="col-sm-3">ФИО студента</dt>
-                {% if interaction.student %}
-                    <dd class="col-sm-9"><a
-                            href="{% url 'student-detail' interaction.student.id %}">{{ interaction.student }}</a></dd>
-                {% else %}
-                    <dd class="col-sm-9">Не задан</dd>
-                {% endif %}
-                <dt class="col-sm-3">Дата начала</dt>
-                <dd class="col-sm-9">{{ interaction.start_date|default_if_none:"&#10060" }}</dd>
-                <dt class="col-sm-3">Дата окончания</dt>
-                <dd class="col-sm-9">{{ interaction.end_date|default_if_none:"&#10060" }}</dd>
-                <dt class="col-sm-3">Статус</dt>
-                <dd class="col-sm-9">{{ interaction.status|default_if_none:"&#10060" }}</dd>
-                <dt class="col-sm-3">Дата создания</dt>
-                <dd class="col-sm-9">{{ interaction.time_create|default_if_none:"&#10060" }}</dd>
-                <dt class="col-sm-3">Дата последнего изменения</dt>
-                <dd class="col-sm-9">{{ interaction.time_edit|default_if_none:"&#10060" }}</dd>
-                {% if interaction.file %}
-                    <dt class="col-sm-3">Прикрепленный документ</dt>
-                    <dd class="col-sm-9"><a href={{ interaction.file.url }} download> {{ filename }} </a></dd>
-                {% endif %}
-                <dt class="col-sm-3">Теги</dt>
-                <dd class="col-sm-9">
-                    {% for tag in interaction.tags.all %}
-                        <a href="{% url 'tag-detail' tag.id %}">{{ tag }}</a>
-                    {% endfor %}
-                </dd>
-                <a href="{% url 'interaction-update' interaction.id %}" class="btn btn-primary">Редактировать</a>
-                <a href="{% url 'interaction-create' %}{{ to_copy }}" class="btn btn-secondary">Копировать</a>
-                <a href="{% url 'interaction-delete' interaction.id %}" class="btn btn-danger">Удалить</a>
-
-            </dl>
+                </dl>
+            </div>
         </div>
     </div>
 

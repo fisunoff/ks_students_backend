@@ -1,40 +1,43 @@
-{% extends "base.html" %}
+{% include "base.html" with page_title=tag %}
 {% block container %}
-
-<div class="card">
-    <div class="card-header">
-        <h5 class="card-title">{{ tag}}</h5>
-    </div>
-    <div class="card-body">
-        <table class="table table-hover table-sm">
-            <caption>Взаимодействия</caption>
-            <thead>
-            <tr>
-                <th scope="col">Название</th>
-                <th scope="col">Наставник</th>
-                <th scope="col">Дата начала</th>
-                <th scope="col">Дата окончания</th>
-                <th scope="col">Статус</th>
-            </tr>
-            </thead>
-            <tbody>
-                {% for interaction in tag.interactions_by_tag.all %}
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">{{ tag }}</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover table-sm">
+                    <caption>Взаимодействия</caption>
+                    <thead>
                     <tr>
-                        <td><a href="{% url 'interaction-detail' interaction.id %}">{{ interaction.interaction_name }}</a></td>
-                        {% if interaction.mentor %}
-                            <td><a href="{% url 'mentor-detail' interaction.mentor.id %}">{{ interaction.mentor }}</a></td>
-                        {% else %}
-                            <td>Не задан</td>
-                        {% endif %}
-                        <td>{{ interaction.start_date|default_if_none:"&#10060" }}</td>
-                        <td>{{ interaction.end_date|default_if_none:"&#10060" }}</td>
-                        <td>{{ interaction.status|default_if_none:"&#10060" }}</td>
+                        <th scope="col">Название</th>
+                        <th scope="col">Наставник</th>
+                        <th scope="col">Дата начала</th>
+                        <th scope="col">Дата окончания</th>
+                        <th scope="col">Статус</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    </thead>
+                    <tbody>
+                    {% for interaction in tag.interactions_by_tag.all %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'interaction-detail' interaction.id %}">{{ interaction.interaction_name }}</a>
+                            </td>
+                            {% if interaction.mentor %}
+                                <td>
+                                    <a href="{% url 'mentor-detail' interaction.mentor.id %}">{{ interaction.mentor }}</a>
+                                </td>
+                            {% else %}
+                                <td>Не задан</td>
+                            {% endif %}
+                            <td>{{ interaction.start_date|default_if_none:"&#10060" }}</td>
+                            <td>{{ interaction.end_date|default_if_none:"&#10060" }}</td>
+                            <td>{{ interaction.status|default_if_none:"&#10060" }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
-
-
 {% endblock %}

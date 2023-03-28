@@ -1,78 +1,79 @@
-{% extends "base.html" %}
+{% include "base.html" with page_title=mentor %}
 {% block container %}
-
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title">Анкета наставника</h5>
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Анкета наставника</h5>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">ФИО</dt>
+                    <dd class="col-sm-9">{{ mentor.surname }} {{ mentor.name }} {{ mentor.patronymic|default_if_none:"" }}</dd>
+                    <dt class="col-sm-3">О себе</dt>
+                    <dd class="col-sm-9">{{ mentor.bio|default_if_none:"&#10060" }}</dd>
+                    <dt class="col-sm-3">Дата рождения</dt>
+                    <dd class="col-sm-9">{{ mentor.birth_date|default_if_none:"&#10060" }}</dd>
+                    <dt class="col-sm-3">Должность</dt>
+                    <dd class="col-sm-9">{{ mentor.position|default_if_none:"&#10060" }}</dd>
+                    <dt class="col-sm-3">Является наставником</dt>
+                    {% if mentor.mentor %}
+                        <dt class="col-sm-9"><input class="form-check-input" type="checkbox" value="" id="MentorCheck"
+                                                    checked disabled></dt>
+                    {% else %}
+                        <dt class="col-sm-9"><input class="form-check-input" type="checkbox" value="" id="MentorCheck"
+                                                    disabled></dt>
+                    {% endif %}
+                    <dt class="col-sm-3">Закрепленные студенты:</dt>
+                    {% if mentor.students.all %}
+                        <dt class="col-sm-9">
+                            {% for student in mentor.students.all %}
+                                <a href={% url 'student-detail' student.id %}>{{ student }}</a>
+                            {% endfor %}
+                        </dt>
+                    {% else %}
+                        <dd class="col-sm-9">Отсутствуют</dd>
+                    {% endif %}
+                    {% if mentor.id == user.profile.id or user.is_superuser %}
+                        <a href="{% url 'mentor-update' mentor.id %}" class="btn btn-primary">Редактировать</a>
+                    {% else %}
+                        <a class="btn btn-primary disabled">Редактировать</a>
+                    {% endif %}
+                    {% if mentor.id == user.profile.id %}
+                        <a href="{% url 'logout' %}" class="btn btn-danger">Выйти</a>
+                        <a href="{% url 'password_change' %}" class="btn btn-warning">Смена пароля</a>
+                    {% endif %}
+                </dl>
+            </div>
         </div>
-        <div class="card-body">
-            <dl class="row">
-                <dt class="col-sm-3">ФИО</dt>
-                <dd class="col-sm-9">{{ mentor.surname }} {{ mentor.name }} {{ mentor.patronymic|default_if_none:"" }}</dd>
-                <dt class="col-sm-3">О себе</dt>
-                <dd class="col-sm-9">{{ mentor.bio|default_if_none:"&#10060" }}</dd>
-                <dt class="col-sm-3">Дата рождения</dt>
-                <dd class="col-sm-9">{{ mentor.birth_date|default_if_none:"&#10060" }}</dd>
-                <dt class="col-sm-3">Должность</dt>
-                <dd class="col-sm-9">{{ mentor.position|default_if_none:"&#10060" }}</dd>
-                <dt class="col-sm-3">Является наставником</dt>
-                {% if mentor.mentor %}
-                    <dt class="col-sm-9"><input class="form-check-input" type="checkbox" value="" id="MentorCheck"
-                                                checked disabled></dt>
-                {% else %}
-                    <dt class="col-sm-9"><input class="form-check-input" type="checkbox" value="" id="MentorCheck"
-                                                disabled></dt>
-                {% endif %}
-                <dt class="col-sm-3">Закрепленные студенты:</dt>
-                {% if mentor.students.all %}
-                    <dt class="col-sm-9">
-                        {% for student in mentor.students.all %}
-                            <a href={% url 'student-detail' student.id %}>{{ student }}</a>
-                        {% endfor %}
-                    </dt>
-                {% else %}
-                    <dd class="col-sm-9">Отсутствуют</dd>
-                {% endif %}
-                {% if mentor.id == user.profile.id or user.is_superuser %}
-                    <a href="{% url 'mentor-update' mentor.id %}" class="btn btn-primary">Редактировать</a>
-                {% else %}
-                    <a class="btn btn-primary disabled">Редактировать</a>
-                {% endif %}
-                {% if mentor.id == user.profile.id %}
-                    <a href="{% url 'logout' %}" class="btn btn-danger">Выйти</a>
-                    <a href="{% url 'password_change' %}" class="btn btn-warning">Смена пароля</a>
-                {% endif %}
-            </dl>
-        </div>
-    </div>
 
-    <table class="table table-hover table-sm">
-        <caption>Взаимодействия</caption>
-        <thead>
-        <tr>
-            <th scope="col">Название</th>
-            <th scope="col">Студент</th>
-            <th scope="col">Дата начала</th>
-            <th scope="col">Дата окончания</th>
-            <th scope="col">Статус</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for interaction in mentor.interactions_to_mentor.all %}
+        <table class="table table-hover table-sm">
+            <caption>Взаимодействия</caption>
+            <thead>
             <tr>
-                <td><a href="{% url 'interaction-detail' interaction.id %}">{{ interaction.interaction_name }}</a></td>
-                {% if interaction.student %}
-                    <td><a href="{% url 'student-detail' interaction.student.id %}">{{ interaction.student }}</a></td>
-                {% else %}
-                    <td>&#10060</td>
-                {% endif %}
-                <td>{{ interaction.start_date|default_if_none:"&#10060" }}</td>
-                <td>{{ interaction.end_date|default_if_none:"&#10060" }}</td>
-                <td>{{ interaction.status|default_if_none:"&#10060" }}</td>
+                <th scope="col">Название</th>
+                <th scope="col">Студент</th>
+                <th scope="col">Дата начала</th>
+                <th scope="col">Дата окончания</th>
+                <th scope="col">Статус</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'interaction-create' %}?mentor={{ mentor.id }}" class="btn btn-primary btn-lg">Добавить взаимодействие</a>
+            </thead>
+            <tbody>
+            {% for interaction in mentor.interactions_to_mentor.all %}
+                <tr>
+                    <td><a href="{% url 'interaction-detail' interaction.id %}">{{ interaction.interaction_name }}</a></td>
+                    {% if interaction.student %}
+                        <td><a href="{% url 'student-detail' interaction.student.id %}">{{ interaction.student }}</a></td>
+                    {% else %}
+                        <td>&#10060</td>
+                    {% endif %}
+                    <td>{{ interaction.start_date|default_if_none:"&#10060" }}</td>
+                    <td>{{ interaction.end_date|default_if_none:"&#10060" }}</td>
+                    <td>{{ interaction.status|default_if_none:"&#10060" }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'interaction-create' %}?mentor={{ mentor.id }}" class="btn btn-primary btn-lg">Добавить взаимодействие</a>
+    </div>
 
 {% endblock %}
