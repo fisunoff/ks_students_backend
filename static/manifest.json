@@ -1,0 +1,22 @@
+{
+    "name": "Учет взаимодействий со студентами",
+    "short_name": "Студенты КС",
+    "start_url": "/",
+    "scope": ".",
+    "display": "standalone",
+    "background_color": "#FFF",
+    "theme_color": "#493174",
+    "description": "Сайт для учета взаимодействия компании со студентами",
+    "dir": "ltr",
+    "lang": "ru-RU",
+    "orientation": "portrait-primary",
+    "icons": [{
+        "src": "/static/icons/icon-96x96.png",
+        "type": "image/png",
+        "sizes": "96x96"
+    }, {
+        "src": "/static/icons/icon-512x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+    }]
+}

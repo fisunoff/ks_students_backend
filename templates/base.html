@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% block meta_tags %}{% endblock %}
     <title>{% block title %}Студенты КС{% endblock %}</title>
+    <link rel="icon" href="{% static 'icons/favicon.ico' %}" sizes="any">
+    <link rel="icon" href="{% static 'icons/icon.svg' %}">
+    <link rel="manifest" href="{% static 'manifest.json' %}">
 
     {% block css %}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -17,6 +20,18 @@
     {% endblock %}
 </head>
 <body>
+
+    <script>
+       if ('serviceWorker' in navigator) {
+           navigator.serviceWorker.register('{% url "sw.js" %}', { scope: '/' }).then(function(reg) {
+               // registration worked
+               console.log('Registration succeeded. Scope is ' + reg.scope);
+           }).catch(function(error) {
+               // registration failed
+               console.log('Registration failed with ' + error);
+           });
+       }
+    </script>
 
 {% block navbar %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

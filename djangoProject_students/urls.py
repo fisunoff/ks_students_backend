@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from django.urls import path, include
 from ks_students.views import StudentsListView
-
+from pwa import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,5 +33,6 @@ urlpatterns = [
     path('accounts/password-change/', PasswordChangeView.as_view(template_name='registration/password_change_form.html'), name='password_change'),
     path('accounts/password-change/done/', PasswordChangeDoneView.as_view(), name='password_change_done'),
     path('', StudentsListView.as_view(template_name="student/students.html"), name='students-list'),
+    path('sw.js', views.ServiceWorkerView.as_view(), name=views.ServiceWorkerView.name),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
